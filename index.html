@@ -19,12 +19,23 @@
       <header class="header">
         <h1 class="header__title">Lista de Compras</h1>
         <form class="header__form" data-js="add">
-          <input class="input" type="text" name="add" placeholder="Produto" />
+          <input
+            class="input"
+            type="text"
+            autofocus
+            autocomplete="name"
+            name="add"
+            placeholder="Produto"
+          />
           <button class="header__button" type="submit">Adicionar Item</button>
         </form>
       </header>
       <hr class="separator" />
-      <ul class="products-list" data-js="products-list"></ul>
+      <ul class="products-list" data-js="products-list">
+        <li class="message-list" data-js="message-list">
+          Sua lista de produtos está vazia
+        </li>
+      </ul>
     </div>
   </body>
 </html>

@@ -30,6 +30,7 @@ const createElement = (tagName, props) => {
 
 const createButtons = (productName) => {
   const productButtons = createElement('div', { class: 'product__buttons' });
+
   const buttonEdit = createElement('button', {
     class: 'product__button',
     'data-button': 'edit',
@@ -40,6 +41,7 @@ const createButtons = (productName) => {
     'data-button': 'delete',
     'data-productname': productName,
   });
+
   buttonEdit.innerHTML = '<i class="fa-solid fa-pen"></i>';
   buttonDelete.innerHTML = '<i class="fa-solid fa-trash"></i>';
 
@@ -47,15 +49,8 @@ const createButtons = (productName) => {
   return productButtons;
 };
 
-const createProductItem = ({ name: productName, purchased }) => {
-  const product = createElement('li', {
-    class: 'product',
-    'data-productname': productName,
-  });
+const createProductMain = (productName, purchased) => {
   const productMain = createElement('div', { class: 'product__main' });
-
-  const productFoot = createElement('p', { class: 'product__footer' });
-  productFoot.textContent = getDateNow();
 
   const productLabel = createElement('label', { class: 'product__label' });
   const productInput = createElement('input', {
@@ -65,7 +60,6 @@ const createProductItem = ({ name: productName, purchased }) => {
     'data-input': 'purchased',
     checked: purchased,
   });
-  productLabel.append(productInput);
 
   const inputProductName = createElement('input', {
     class: 'input product__name',
@@ -77,8 +71,10 @@ const createProductItem = ({ name: productName, purchased }) => {
     class: 'product__name',
     'data-js': 'product-name',
   });
+
   spanProductName.textContent = productName;
 
+  productLabel.append(productInput);
   const productButtons = createButtons(productName);
 
   productMain.append(
@@ -87,8 +83,20 @@ const createProductItem = ({ name: productName, purchased }) => {
     spanProductName,
     productButtons
   );
-  product.append(productMain, productFoot);
 
+  return productMain;
+};
+
+const createProductItem = ({ name: productName, purchased }) => {
+  const product = createElement('li', {
+    class: 'product',
+    'data-productname': productName,
+  });
+  const productMain = createProductMain(productName, purchased);
+  const productFoot = createElement('p', { class: 'product__footer' });
+  productFoot.textContent = getDateNow();
+
+  product.append(productMain, productFoot);
   return product;
 };
 

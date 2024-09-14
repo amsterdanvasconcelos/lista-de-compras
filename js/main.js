@@ -21,7 +21,6 @@ const validateProductName = (productName) => {
     (product) => product.dataset.productname === productName
   );
 
-  console.log('alreadyExists', alreadyExists);
   if (alreadyExists) {
     alert('Este produto já existe!');
     return false;
@@ -41,6 +40,7 @@ const handleSubmit = (event) => {
   addProduct(product);
 
   event.target.reset();
+  event.target.add.focus();
 };
 
 const handleClick = ({ target }) => {
@@ -65,8 +65,6 @@ productsList.addEventListener('change', handleChange);
 
 const init = () => {
   const productsLS = JSON.parse(localStorage.getItem('products'));
-
-  if (!productsLS) return;
 
   productsLS.forEach((product) => addProduct(product, true));
 };
