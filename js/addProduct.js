@@ -68,7 +68,7 @@ const createProductItem = ({ name: productName, purchased }) => {
   productLabel.append(productInput);
 
   const inputProductName = createElement('input', {
-    class: 'input',
+    class: 'input product__name',
     type: 'text',
     value: productName,
     'data-input': 'product-name',
