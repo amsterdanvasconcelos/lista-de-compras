@@ -1,22 +1,22 @@
 const productsList = document.querySelector('[data-js="products-list"]');
 
-const deleteLocalStorage = (nameOfProduct) => {
-  const productsLS = JSON.parse(localStorage.getItem('products-crud'));
+const deleteLocalStorage = (productName) => {
+  const productsLS = JSON.parse(localStorage.getItem('products'));
 
-  const newProductsLS = productsLS.filter(({ name }) => name !== nameOfProduct);
+  const newProductsLS = productsLS.filter(({ name }) => name !== productName);
 
-  localStorage.setItem('products-crud', JSON.stringify(newProductsLS));
+  localStorage.setItem('products', JSON.stringify(newProductsLS));
 };
 
 const deleteProduct = (target) => {
-  const nameOfProduct = target.dataset.value;
+  const productName = target.dataset.productname;
 
-  deleteLocalStorage(nameOfProduct);
+  deleteLocalStorage(productName);
 
   const products = productsList.querySelectorAll('li');
 
   Array.from(products).forEach((product) => {
-    if (product.dataset.product === nameOfProduct) {
+    if (product.dataset.productname === productName) {
       product.remove();
     }
   });

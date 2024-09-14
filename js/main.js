@@ -1,37 +1,28 @@
 import { addProduct } from './addProduct.js';
 import { deleteProduct } from './deleteProduct.js';
-import { editProduct, saveEditedProduct } from './editProduct.js';
+import {
+  updateProductName,
+  saveUpdatedProductName,
+  updatePurchasedStatus,
+} from './updateProduct.js';
 
 const formAdd = document.querySelector('[data-js="add"]');
 const productsList = document.querySelector('[data-js="products-list"]');
 
-const addProductLocalStorage = (product) => {
-  const productsLocalStorage = JSON.parse(
-    localStorage.getItem('products-crud')
-  );
-
-  if (productsLocalStorage) {
-    localStorage.setItem(
-      'products-crud',
-      JSON.stringify([...productsLocalStorage, product])
-    );
-  } else {
-    localStorage.setItem('products-crud', JSON.stringify([product]));
-  }
-};
-
-const validationNameProduct = (nameOfProduct) => {
-  if (!nameOfProduct.length) {
+const validateProductName = (productName) => {
+  if (!productName.length) {
     alert('Você não disse qual produto adicionar!');
     return false;
   }
 
   const products = productsList.querySelectorAll('li');
-  const alreadyExists = Array.from(products).filter(
-    (product) => product.dataset.product === nameOfProduct
+
+  const alreadyExists = Array.from(products).some(
+    (product) => product.dataset.productname === productName
   );
 
-  if (alreadyExists.length) {
+  console.log('alreadyExists', alreadyExists);
+  if (alreadyExists) {
     alert('Este produto já existe!');
     return false;
   }
@@ -41,13 +32,12 @@ const validationNameProduct = (nameOfProduct) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  const nameOfProduct = event.target.add.value;
+  const productName = event.target.add.value;
 
-  const isValidName = validationNameProduct(nameOfProduct);
+  const isValidName = validateProductName(productName);
   if (!isValidName) return;
 
-  const product = { name: nameOfProduct, purchased: false };
-  addProductLocalStorage(product);
+  const product = { name: productName, purchased: false };
   addProduct(product);
 
   event.target.reset();
@@ -61,23 +51,12 @@ const handleClick = ({ target }) => {
   if (!isDeleteButton && !isEditButton && !isSaveButton) return;
 
   if (isDeleteButton) return deleteProduct(target);
-  if (isEditButton) return editProduct(target);
-  if (isSaveButton) return saveEditedProduct(target);
+  if (isEditButton) return updateProductName(target);
+  if (isSaveButton) return saveUpdatedProductName(target);
 };
 
 const handleChange = ({ target }) => {
-  const nameOfProduct = target.dataset.purchased;
-  const isChecked = target.checked;
-
-  const productsLS = JSON.parse(localStorage.getItem('products-crud'));
-
-  const newProductsLS = productsLS.map(({ name, purchased }) => {
-    if (name === nameOfProduct) return { name, purchased: isChecked };
-
-    return { name, purchased };
-  });
-
-  localStorage.setItem('products-crud', JSON.stringify(newProductsLS));
+  updatePurchasedStatus(target);
 };
 
 formAdd.addEventListener('submit', handleSubmit);
@@ -85,13 +64,11 @@ productsList.addEventListener('click', handleClick);
 productsList.addEventListener('change', handleChange);
 
 const init = () => {
-  const productsLocalStorage = JSON.parse(
-    localStorage.getItem('products-crud')
-  );
+  const productsLS = JSON.parse(localStorage.getItem('products'));
 
-  if (!productsLocalStorage) return;
+  if (!productsLS) return;
 
-  productsLocalStorage.forEach((product) => addProduct(product));
+  productsLS.forEach((product) => addProduct(product, true));
 };
 
 init();
