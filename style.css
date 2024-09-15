@@ -146,13 +146,14 @@ body {
 
 .product__name {
   width: 100%;
+  margin-left: -0.5rem;
   font-size: 1.1rem;
   color: var(--text-clr);
 }
 
 .product__buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .product__button {
