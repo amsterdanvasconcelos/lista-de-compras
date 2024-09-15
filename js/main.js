@@ -66,6 +66,8 @@ productsList.addEventListener('change', handleChange);
 const init = () => {
   const productsLS = JSON.parse(localStorage.getItem('products'));
 
+  if (!productsLS || !productsLS.length) return;
+
   productsLS.forEach((product) => addProduct(product, true));
 };
 
