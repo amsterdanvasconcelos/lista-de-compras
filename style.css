@@ -122,6 +122,8 @@ body {
 }
 
 .product {
+  position: relative;
+
   border-left: 2px solid var(--second-clr);
   padding-left: 0.5rem;
   padding: 0.5rem;
@@ -190,6 +192,13 @@ body {
   display: none;
 }
 
+.product:has(input:checked) {
+  background-color: #33466475;
+}
+.product:has(input:checked) .product__button:nth-child(1) {
+  pointer-events: none;
+}
+
 *::-webkit-scrollbar {
   width: 6px;
 }
@@ -201,4 +210,120 @@ body {
 *::-webkit-scrollbar-thumb {
   background-color: var(--first-clr);
   border-radius: 20px;
+}
+
+.notifications {
+  position: fixed;
+  bottom: -1px;
+  width: 100%;
+}
+
+@media (min-width: 780px) {
+  .notifications {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    width: max-content;
+  }
+}
+
+.toast {
+  position: relative;
+  padding: 1em;
+  border-top: 1px solid var(--third-clr);
+  background-color: var(--active-clr);
+  box-shadow: 0 -12px 12px rgba(156, 102, 125, 0.5);
+
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  animation: showMobile 300ms ease 1 forwards,
+    hiddenMobile 300ms ease 5s 1 forwards;
+
+  overflow: hidden;
+}
+
+@media (min-width: 780px) {
+  .toast {
+    border: 1px solid var(--third-clr);
+    border-radius: 0.5rem;
+    box-shadow: 0 12px 12px rgba(156, 102, 125, 0.5);
+
+    animation: showDesktop 300ms ease 1 forwards,
+      hiddenDesktop 300ms ease 5s 1 forwards;
+  }
+}
+
+@keyframes showMobile {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hiddenMobile {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(150%);
+  }
+}
+
+@keyframes showDesktop {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10%);
+  }
+}
+
+@keyframes hiddenDesktop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+.toast__content {
+  color: white;
+}
+
+.toast__title {
+  font-weight: bold;
+}
+
+.toast::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  content: '';
+  background-color: var(--third-clr);
+  height: 5px;
+  width: 100%;
+
+  animation: timeOut 5s ease 1 forwards;
+  transform-origin: left;
+}
+
+@keyframes timeOut {
+  0% {
+    scale: 1 1;
+  }
+  100% {
+    scale: 0 1;
+  }
 }
