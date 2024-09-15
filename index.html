@@ -10,27 +10,34 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <title>Document</title>
+    <meta
+      name="description"
+      content="Deixe suas compras mais fácil com esse incrível app. Não esqueça suas compras nunca mais."
+    />
+    <title>Lista de Compras</title>
     <link rel="stylesheet" href="style.css" />
     <script defer type="module" src="js/main.js"></script>
   </head>
   <body>
     <div class="container">
-      <header class="header">
-        <h1 class="header__title">Lista de Compras</h1>
-        <form class="header__form" data-js="add">
-          <input
-            class="input"
-            type="text"
-            autofocus
-            autocomplete="name"
-            name="add"
-            placeholder="Produto"
-          />
-          <button class="header__button" type="submit">Adicionar Item</button>
-        </form>
-      </header>
-      <hr class="separator" />
+      <div>
+        <header class="header">
+          <h1 class="header__title">Lista de Compras</h1>
+          <form class="header__form" data-js="add">
+            <input
+              class="input"
+              type="text"
+              autofocus
+              autocomplete="name"
+              name="add"
+              placeholder="Produto"
+            />
+            <button class="header__button" type="submit">Adicionar Item</button>
+          </form>
+        </header>
+        <hr class="separator" />
+      </div>
+
       <ul class="products-list" data-js="products-list">
         <li class="message-list" data-js="message-list">
           Sua lista de produtos está vazia
