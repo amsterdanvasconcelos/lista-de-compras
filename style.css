@@ -53,9 +53,12 @@ body {
   border-radius: 1rem;
   box-shadow: 0px 12px 12px rgba(156, 102, 125, 0.5);
   background-color: white;
-  height: 37.5rem;
+  max-height: 80vh;
   max-width: 80vh;
   width: 90%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .header__title {
@@ -108,7 +111,6 @@ body {
   gap: 0.5rem;
   padding: 0.5rem;
 
-  height: 23.125rem;
   overflow-y: scroll;
 
   border-end-end-radius: 0.7rem;
@@ -184,4 +186,17 @@ body {
 
 .products-list li ~ .message-list {
   display: none;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--second-clr);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--first-clr);
+  border-radius: 20px;
 }
