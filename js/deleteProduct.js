@@ -1,12 +1,5 @@
+import { deleteLocalStorage } from './localStorage.js';
 const productsList = document.querySelector('[data-js="products-list"]');
-
-const deleteLocalStorage = (productName) => {
-  const productsLS = JSON.parse(localStorage.getItem('products'));
-
-  const newProductsLS = productsLS.filter(({ name }) => name !== productName);
-
-  localStorage.setItem('products', JSON.stringify(newProductsLS));
-};
 
 const deleteProduct = (target) => {
   const productName = target.dataset.productname;

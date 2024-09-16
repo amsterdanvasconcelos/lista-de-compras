@@ -1,14 +1,6 @@
+import { addProductLocalStorage } from './localStorage.js';
+
 const productsList = document.querySelector('[data-js="products-list"]');
-
-const addProductLocalStorage = (product) => {
-  const productsLS = JSON.parse(localStorage.getItem('products'));
-
-  if (productsLS) {
-    localStorage.setItem('products', JSON.stringify([...productsLS, product]));
-  } else {
-    localStorage.setItem('products', JSON.stringify([product]));
-  }
-};
 
 const getDateNow = () => {
   const newDate = new Date();

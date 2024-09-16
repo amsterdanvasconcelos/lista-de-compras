@@ -1,16 +1,4 @@
-const saveLocalStorage = (prevProductName, currentProductName) => {
-  const productsLS = JSON.parse(localStorage.getItem('products'));
-
-  const newProductsLS = productsLS.map(({ name, purchased }) => {
-    if (prevProductName === name) {
-      return { name: currentProductName, purchased };
-    }
-
-    return { name, purchased };
-  });
-
-  localStorage.setItem('products', JSON.stringify(newProductsLS));
-};
+import { updateLocalStorage } from './localStorage.js';
 
 const saveUpdatedProductName = (target) => {
   const productName = target.dataset.productname;
@@ -22,10 +10,9 @@ const saveUpdatedProductName = (target) => {
   const inputPurchased = product.querySelector('[data-input="purchased"]');
 
   const newProductName = inputProductName.value;
+  updateLocalStorage(productName, newProductName);
 
   inputProductName.style.display = 'none';
-
-  saveLocalStorage(productName, newProductName);
 
   spanProductName.style.display = 'block';
   spanProductName.textContent = newProductName;
